@@ -29,4 +29,9 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/check-user</url-pattern>
+    </servlet-mapping>
+
 </web-app>

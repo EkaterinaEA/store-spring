@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import store.system.model.Cart;
+import store.system.service.CartService;
 
 import java.util.List;
 

@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import store.system.model.Order;
+import store.system.service.OrderService;
 
 import java.util.List;
 

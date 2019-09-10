@@ -17,7 +17,7 @@ public class HibernateFactory {
 
     private static SessionFactory sessionFactory;
 
-    private HibernateFactory() {
+    public HibernateFactory() {
     }
 
     public static SessionFactory getSessionFactory() {

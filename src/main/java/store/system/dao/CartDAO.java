@@ -24,9 +24,10 @@ public class CartDAO {
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         Integer id = (Integer) session.save(cart);
+        cart.setId(id);
         session.getTransaction().commit();
         session.close();
-        return CartService.findById(id);
+        return cart;
     }
 
     public static boolean findClosedFalse(Integer userId){
@@ -47,7 +48,7 @@ public class CartDAO {
     public static Cart findById(Integer id){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Cart cartFromDB = (Cart) session.find(Cart.class, id);
+        Cart cartFromDB = session.find(Cart.class, id);
         session.getTransaction().commit();
         session.close();
         return cartFromDB;
@@ -56,11 +57,15 @@ public class CartDAO {
     public static Cart getCartByUserId(Integer userId){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Query q = session.createNativeQuery("SELECT * FROM carts WHERE user_id=?");
+        Query q = session.createNativeQuery("SELECT * FROM carts WHERE user_id=?", Cart.class);
         q.setParameter(1, userId);
-        Cart cartFromDB = (Cart) q.getResultList().get(0);
+        List<Cart> cartFromDB = q.getResultList();
         session.close();
-        return cartFromDB;
+        if (cartFromDB.size() == 0){
+            return null;
+        } else {
+            return cartFromDB.get(0);
+        }
     }
 
     public static List<Cart> findAll(){

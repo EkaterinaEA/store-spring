@@ -25,7 +25,7 @@ public class Cart {
     private Boolean closed;
 
     @ManyToOne(targetEntity = User.class)
-    @Column (name = "user")
+    @JoinColumn (name = "user")
     private User user;
 
     public Cart() { }

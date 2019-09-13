@@ -19,12 +19,14 @@ public class Order {
     private Integer id;
 
     @ManyToOne(targetEntity = Item.class)
+    @JoinColumn(name = "item")
     private Item item;
 
     @Column(name = "amount")
     private Integer amount;
 
     @ManyToOne(targetEntity = Cart.class)
+    @JoinColumn(name = "cart")
     private Cart cart;
 
     public Order() { }

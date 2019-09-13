@@ -15,9 +15,9 @@ public class UserDAO {
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         Integer id = (Integer) session.save(user);
+        user.setId(id);
         session.getTransaction().commit();
         session.close();
-        user.setId(id);
         return user;
     }
 
@@ -33,7 +33,7 @@ public class UserDAO {
     public static User findById(Integer id){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        User userFromDB = (User) session.find(User.class, id);
+        User userFromDB = session.find(User.class, id);
         session.getTransaction().commit();
         session.close();
         return userFromDB;
@@ -42,12 +42,13 @@ public class UserDAO {
     public static User findByNameAndPassword(String name, String password){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Query q = session.createNativeQuery("SELECT * FROM users WHERE name=? AND password=?");
+        Query q = session.createNativeQuery("SELECT * FROM users WHERE name=? AND password=?", User.class);
         q.setParameter(1, name);
         q.setParameter(2, password);
-        User userFromDB = (User) q.getResultList().get(0);
+        List<User> usersFromDB = q.getResultList();
+        session.getTransaction().commit();
         session.close();
-        return userFromDB;
+        return usersFromDB.get(0);
     }
 
     public static List<User> findAll(){

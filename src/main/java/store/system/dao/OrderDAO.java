@@ -42,12 +42,13 @@ public class OrderDAO {
     public static Order findFirstByCartIdAndProductId(Integer cartId, Integer productId){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Query q = session.createNativeQuery("SELECT * FROM orders WHERE cart_id=? AND product_id=?");
+        Query q = session.createNativeQuery("SELECT * FROM orders WHERE cart_cart_id=? AND item_id=?", Order.class);
         q.setParameter(1, cartId);
         q.setParameter(2, productId);
-        Order orderFromDB = (Order) q.getResultList().get(0);
+        List<Order> orderFromDB = q.getResultList();
+        session.getTransaction().commit();
         session.close();
-        return orderFromDB;
+        return orderFromDB.get(0);
     }
 
     public static List<Order> findAll(){
@@ -61,11 +62,15 @@ public class OrderDAO {
     public static List<Order> findAllOrdersByCartId(Integer cartId){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Query q = session.createNativeQuery("SELECT * FROM orders WHERE cart_id=?");
+        Query q = session.createNativeQuery("SELECT * FROM orders WHERE cart_cart_id=?", Order.class);
         q.setParameter(1, cartId);
         List<Order> orderFromDB = q.getResultList();
         session.close();
-        return orderFromDB;
+        if (orderFromDB.size() == 0){
+            return null;
+        } else {
+            return orderFromDB;
+        }
     }
 
     public static void delete(Order order){

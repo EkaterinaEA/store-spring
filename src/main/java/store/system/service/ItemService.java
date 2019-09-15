@@ -10,28 +10,32 @@ public class ItemService {
     public ItemService() {
     }
 
-    public static void saveOrUpdate(Item item){
+    public static void saveOrUpdate(Item item) {
         ItemDAO.saveOrUpdate(item);
     }
 
-    public static Item findById(Integer id){
+    public static Item findById(Integer id) {
         return new ItemDAO().findById(id);
     }
 
-    public static List<Item> findAll(){
+    public static List<Item> findAll() {
         return ItemDAO.findAll();
     }
 
-    public static void delete(Item item){
+    public static void delete(Item item) {
         ItemDAO.delete(item);
     }
 
-    public static Integer totalPrice(List<Item> items){
+    public static Integer totalPrice(List<Item> items) {
         Integer totalPrice = 0;
-        for (int i = 0; i<items.size(); i++){
+        for (int i = 0; i < items.size(); i++) {
             totalPrice += items.get(i).getPrice();
         }
         return totalPrice;
+    }
+
+    public static Item create(Item item) {
+        return ItemDAO.create(item);
     }
 }
 

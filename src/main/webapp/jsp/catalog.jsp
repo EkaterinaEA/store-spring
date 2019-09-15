@@ -28,7 +28,7 @@
             <form method="post" action="<c:url value='/cart'/>">
                 <input type="submit" value="Add to cart">
                 <input type="number" hidden name="userId" value="${userId}">
-                <input type="number" hidden name="productId" value="${item.productId}">
+                <input type="number" hidden name="productId" value="${item.id}">
             </form>
         </ul>
         <hr />

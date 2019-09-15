@@ -80,7 +80,7 @@ public class CartServlet extends HttpServlet {
 
             Cart cart = CartService.getCartByUserId(userid);
 
-            if (OrderService.findAllOrdersByCartId(cart.getId()).size() == 0) {
+            if (OrderService.findAllOrdersByCartId(cart.getId()) == null) {
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/cart.jsp");
                 req.setAttribute("cartempty", 1);
                 dispatcher.forward(req, resp);

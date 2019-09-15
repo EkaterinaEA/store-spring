@@ -2,6 +2,7 @@ package store.system.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import store.system.model.Item;
 
 import java.util.List;
@@ -18,6 +19,16 @@ public class ItemDAO {
         session.close();
     }
 
+    public static Item create(Item item){
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        Integer id = (Integer) session.save(item);
+        item.setId(id);
+        session.getTransaction().commit();
+        session.close();
+        return item;
+    }
+
     public static Item findById(Integer id){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
@@ -30,10 +41,16 @@ public class ItemDAO {
     public static List<Item> findAll(){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        String sql = "SELECT * FROM products";
-        List<Item> result = session.createNativeQuery(sql).getResultList();
-        return result;
+        Query q = session.createNativeQuery("SELECT * FROM products", Item.class);
+        List<Item> result = q.getResultList();
+        session.close();
+        if (result.size() == 0){
+            return null;
+        } else {
+            return result;
+        }
     }
+
 
     public static void delete(Item item){
         Session session = sessionFactory.openSession();

@@ -35,7 +35,7 @@
         <form method="get" action="<c:url value='/cart'/>">
             <input type="submit" value="Remove from cart">
             <input type="number" hidden name="userId" value="${userId}">
-            <input type="number" hidden name="productIdDelete" value="${item.productId}">
+            <input type="number" hidden name="productIdDelete" value="${item.id}">
             <input type="number" hidden name="cartId" value="${cartId}">
         </form>
 
@@ -46,7 +46,7 @@
     <form method="post" action="<c:url value='/checkout'/>">
         <input type="submit" value="Make an order">
         <input type="number" hidden name="userId" value="${userId}">
-        <input type="number" hidden name="productId" value="${item.productId}">
+        <input type="number" hidden name="productId" value="${item.id}">
         <input type="number" hidden name="cartId" value="${cartId}">
         <input type="number" hidden name="totalPrice" value="${totalPrice}">
     </form>

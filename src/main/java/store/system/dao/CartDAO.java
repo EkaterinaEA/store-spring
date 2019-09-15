@@ -33,10 +33,10 @@ public class CartDAO {
     public static boolean findClosedFalse(Integer userId){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Query q = session.createNativeQuery("SELECT * FROM carts WHERE user_id=?");
+        Query q = session.createNativeQuery("SELECT * FROM carts WHERE user_id=?", Cart.class);
         q.setParameter(1, userId);
         boolean closed = true;
-        List<Cart> carts = CartService.findAll();
+        List<Cart> carts = q.getResultList();
         for (int i=0; i<carts.size(); i++){
             if (carts.get(i).getClosed() == false){
                 closed = false;
@@ -72,7 +72,7 @@ public class CartDAO {
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         String sql = "SELECT * FROM carts";
-        List<Cart> result = session.createNativeQuery(sql).getResultList();
+        List<Cart> result = session.createNativeQuery(sql, Cart.class).getResultList();
         return result;
     }
 

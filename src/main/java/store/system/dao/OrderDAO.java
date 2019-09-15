@@ -33,7 +33,7 @@ public class OrderDAO {
     public static Order findOne(Integer id){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Order ordersFromDB = (Order) session.find(Order.class, id);
+        Order ordersFromDB = session.find(Order.class, id);
         session.getTransaction().commit();
         session.close();
         return ordersFromDB;
@@ -55,7 +55,7 @@ public class OrderDAO {
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         String sql = "SELECT * FROM orders";
-        List<Order> result = session.createNativeQuery(sql).getResultList();
+        List<Order> result = session.createNativeQuery(sql, Order.class).getResultList();
         return result;
     }
 

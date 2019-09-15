@@ -51,7 +51,6 @@ public class ItemDAO {
         }
     }
 
-
     public static void delete(Item item){
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();

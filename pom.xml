@@ -19,7 +19,7 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <lombok.version>1.18.6</lombok.version>
     <javax.version>4.0.1</javax.version>
-    <spring-framework-version>5.1.5.RELEASE</spring-framework-version>
+    <spring-framework-version>5.2.3.RELEASE</spring-framework-version>
     <psgSQL-jdbc.version>42.2.6</psgSQL-jdbc.version>
   </properties>
 
